@@ -62,27 +62,32 @@ def recommender(N, ingredient):
     cent_dist = np.linalg.norm(new_point - center_pts[pred_clust])
 
     #distance from new point to N closest neighbors
+    ##>> Get the indices of the points in the cluster
     pts_in_clust = list((np.array(kmeans.labels_)==pred_clust[0]).nonzero()[0])
+    ##>>find the corresponding locations and ID numbers of each point
     clust_pts = X_lsa[pts_in_clust]
     clust_id = np.array(labs)[pts_in_clust]
     
+    ##>>Calculate the distances between the new point and each point in the cluster
     distances = []
     for x in clust_pts:
         distances.append(np.linalg.norm(new_point - x))
+    ##>>Use argsort to find the indices of N closest (the N lowest distances)
     idx = np.argsort(distances)[:(int(N))]
+    ##>>Get the actual distances and id's based on the indices
     distances = np.array(distances)[idx]
     labels = np.array(clust_id)[idx]
 
-    #FINAL DATA
+    #Prepare the dictionary, convert to JSON, print it pretty
     cuisine = cluster_dict[pred_clust[0]]
     cuisine_dist = cent_dist
     nbr_dist = []
     for x,y in zip(labels, distances):
-        nbr_dist.append({'id':x,'score':y})
-    final_dict = {'cuisine':cuisine, 'score':cuisine_dist,'closest':nbr_dist}
-    print(final_dict)
-    print(json.dumps(final_dict, sort_keys=False,indent=4, separators=(',',': ')))
-    
+        nbr_dist.append({'id':str(x),'score':float(round(y,2))})
+    final_dict = {'cuisine':str(cuisine), 'score':float(round(cuisine_dist,2)),'closest':nbr_dist}
+    formatted = json.dumps(final_dict, indent=4)
+    print(formatted)
+
 
 
 if __name__ == '__main__':
