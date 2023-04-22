@@ -25,7 +25,7 @@ project2.py is the name of the source file that performs the clustering of the y
 --ingredient is the tag that precedes each ingredient in a dish for which the user is attempting to find similar dishes. Any number of ingredients can be included so long as the number of ingredients does not exceed the largest positive integer supported by Python which according to a call to sys.maxsize on my machine is 9223372036854775807. If a single ingredient is represented by two words, eg. Soy Sauce, the user should enclose this ingredient in quotes i.e. --ingredient "soy sauce".
 
 Visit this link for a video example of how to run:
-[youtube.com](url)
+[youtube.com](https://youtu.be/HL7MEGWk09Y)
 
 ### 3. DESIGN CONSIDERATIONS
 
