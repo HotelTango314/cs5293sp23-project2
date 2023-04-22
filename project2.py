@@ -32,13 +32,13 @@ def recommender(N, ingredient):
     for a in rec_df['id']:
         labs.append(a)
 
-    #vectorize the data
-    vectorizer = TfidfVectorizer(max_df = .75, min_df = 5, stop_words="english")
-    X_tfidf = vectorizer.fit_transform(X)
+    #pre-process: vectorize the data and reduce the data
+    lsa = make_pipeline(
+            TfidfVectorizer(max_df = .75, min_df = 5, stop_words='english'),
+            TruncatedSVD(n_components = 100), 
+            Normalizer(copy=False))
     
-    #reduce the data
-    lsa = make_pipeline(TruncatedSVD(n_components = 100), Normalizer(copy=False))
-    X_lsa = lsa.fit_transform(X_tfidf)
+    X_lsa = lsa.fit_transform(X)
     kmeans = KMeans(n_clusters=20, max_iter=100, n_init=1)
     kmeans.fit(X_lsa)
     center_pts = kmeans.cluster_centers_
@@ -55,7 +55,7 @@ def recommender(N, ingredient):
     
     #predict new data
     new_recipe = [list_to_sent(ingredient)]
-    new_point = lsa.transform(vectorizer.transform(new_recipe))
+    new_point = lsa.transform(new_recipe)
     pred_clust = kmeans.predict(new_point)
     
     #distance from new point to centroid of assigned cluster
@@ -85,8 +85,8 @@ def recommender(N, ingredient):
     for x,y in zip(labels, distances):
         nbr_dist.append({'id':str(x),'score':float(round(y,2))})
     final_dict = {'cuisine':str(cuisine), 'score':float(round(cuisine_dist,2)),'closest':nbr_dist}
-    formatted = json.dumps(final_dict, indent=4)
-    print(formatted)
+    #formatted = json.dumps(final_dict, indent=4)
+    return final_dict
 
 
 
@@ -97,4 +97,6 @@ if __name__ == '__main__':
     parser.add_argument('--ingredient', action='append')
 
     args = parser.parse_args()
-    recommender(args.N, args.ingredient)
+    result = recommender(args.N, args.ingredient)
+    formatted = json.dumps(result, indent=4)
+    print(formatted)

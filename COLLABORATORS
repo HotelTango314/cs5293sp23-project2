@@ -1,1 +1,19 @@
-SCIKIT LEARN DOCS | https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html#sphx-glr-auto-examples-text-plot-document-clustering-py | HELPED ME UNDERSTAND HOW TO USE VECTORIZERS TO PARSE AND TABULATE THESE INGREDIENTS
+SCIKIT-LEARN DOCS | https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html#sphx-glr-auto-examples-text-plot-document-clustering-py | carefully studied this example from the scikit learn docs on how to use kmeans algorithm to apply tfidf vectorizer, reduce dimensionality through Latent Semantic Analysis with TruncatedSVD and , and then apply knn algorithm to cluster the documents
+
+medium.com | https://medium.com/acing-ai/what-is-latent-semantic-analysis-lsa-4d3e2d18417a | to better understand how latent semantic analysis is used in topic modeling
+
+SCIKIT-LEARN DOCS | https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans.fit_predict | referenced the documentation on the kmeans algorithm to properly implement it in the project
+
+SCIKIT-LEARN DOCS | https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer | referenced the documentation on the tfidf vectorizer
+
+SCIKIT-LEARN DOCS | https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html#sklearn.decomposition.TruncatedSVD | referenced the documentation of the TruncatedSVD method which is recommended in the docs for reducing dimensionality of tfidf matrices in text analytics applications.
+
+stackOverflow | https://stackoverflow.com/questions/61740634/predicting-new-content-for-text-clustering-using-sklearn#:~:text=vect%20%3D%20TfidfVectorizer%20%28tokenizer%3Dpreprocessing%29%20vectorized_text%20%3D%20vect.fit_transform%20%28df,given%20dataset%20df%20%5B%27predicted%20cluster%27%5D%20%3D%20kmeans.predict%20%28vectorized_text%29 | reading up on how to predict the cluster assignment of new data introduced after training the model
+
+Python docs | https://docs.python.org/3/library/collections.html#collections.Counter | the counter docs that enabled convenient tallying of the various cuisine labels of each point in each cluster to figure out what was the predominant cuisine in each cluster, and with that information, label the whole cluster.
+
+StackOverflow | https://stackoverflow.com/questions/20038011/trying-to-find-majority-element-in-a-list | Counter example
+
+StackOverflow | https://stackoverflow.com/questions/54240144/distance-between-nodes-and-the-centroid-in-a-kmeans-cluster | Reviewed this website while researching the optimal approach to measuring the distance between node and centroid of assigned cluster
+
+StackOverflow | https://stackoverflow.com/questions/45000386/sklearn-custom-distance-function-in-nearest-neighbor-giving-wrong-answer#:~:text=This%20is%20the%20code%3A%20from%20sklearn.metrics.pairwise%20import%20cosine_similarity,%28x%29%20distances%2C%20indices%20%3D%20nbrs.kneighbors%20%28x%29%20print%20%28distances%29 | Reviewed this page while researching optimal approach to measuing the distance between a new node and all other nodes in the cluster.
